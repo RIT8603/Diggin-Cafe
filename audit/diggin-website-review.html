@@ -1,0 +1,358 @@
+<title>Diggin Website Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a single inspection-report column; findings as a severity-striped ledger, scores as paired bars. */
+:root {
+  --paper: #f7f8f6;
+  --sheet: #ffffff;
+  --ink: #17201c;
+  --ink-2: #4e5a54;
+  --rule: #dde3df;
+  --accent: #1e5a43;
+  --accent-soft: #e3efe8;
+  --crit: #b3261e;
+  --crit-soft: #fbe9e7;
+  --high: #a85d00;
+  --high-soft: #fdf0dc;
+  --med: #3f5f8a;
+  --med-soft: #e7eef8;
+  --low: #6b7570;
+  --low-soft: #eef1ef;
+  --bar-old: #c9cfcc;
+  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body: 'Public Sans', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111614; --sheet: #18201c; --ink: #e7ece9; --ink-2: #a3b0aa; --rule: #2c3631;
+    --accent: #7fcca8; --accent-soft: #1d3329;
+    --crit: #ff8a80; --crit-soft: #3a1d1b; --high: #f2b25c; --high-soft: #382a16;
+    --med: #9dbbe6; --med-soft: #1c2738; --low: #a3b0aa; --low-soft: #232b27; --bar-old: #3b4641;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111614; --sheet: #18201c; --ink: #e7ece9; --ink-2: #a3b0aa; --rule: #2c3631;
+  --accent: #7fcca8; --accent-soft: #1d3329;
+  --crit: #ff8a80; --crit-soft: #3a1d1b; --high: #f2b25c; --high-soft: #382a16;
+  --med: #9dbbe6; --med-soft: #1c2738; --low: #a3b0aa; --low-soft: #232b27; --bar-old: #3b4641;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance; color: var(--ink); }
+h1 { font-size: clamp(2.3rem, 7vw, 3.6rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.label { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.muted { color: var(--ink-2); }
+section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 8px; }
+
+/* Header */
+header { display: grid; gap: 18px; padding-bottom: 28px; border-bottom: 2px solid var(--ink); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font-family: var(--mono); font-size: 0.8rem; color: var(--ink-2); }
+.meta b { color: var(--ink); font-weight: 700; }
+.summary { font-size: 1.12rem; }
+.tally { display: flex; flex-wrap: wrap; gap: 10px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; }
+.pill b { font-family: var(--mono); }
+.pill.crit { background: var(--crit-soft); color: var(--crit); }
+.pill.high { background: var(--high-soft); color: var(--high); }
+.pill.med { background: var(--med-soft); color: var(--med); }
+.pill.low { background: var(--low-soft); color: var(--low); }
+
+/* Scores */
+.scores { background: var(--sheet); border: 1px solid var(--rule); border-radius: 14px; padding: 22px; display: grid; gap: 18px; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+.score-row { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 6px 16px; align-items: center; }
+.score-row + .score-row { padding-top: 14px; border-top: 1px solid var(--rule); }
+.score-name { font-weight: 600; font-size: 0.95rem; }
+.score-name small { display: block; font-weight: 400; color: var(--ink-2); font-size: 0.78rem; }
+.bars { display: grid; gap: 5px; min-width: 0; }
+.bar { display: grid; grid-template-columns: minmax(0, 1fr) 70px; gap: 10px; align-items: center; }
+.bar-track { height: 12px; border-radius: 3px; background: var(--paper); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.bar.old .bar-fill { background: var(--bar-old); }
+.bar.new .bar-fill { background: var(--accent); }
+.bar-val { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; text-align: right; }
+.bar.new .bar-val { color: var(--accent); font-weight: 700; }
+.footnote { font-size: 0.8rem; color: var(--ink-2); }
+@media (max-width: 520px) { .score-row { grid-template-columns: 1fr; } }
+
+/* Findings */
+.findings { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.finding { background: var(--sheet); border: 1px solid var(--rule); border-left: 5px solid var(--sev); border-radius: 10px; padding: 18px 20px; display: grid; gap: 8px; }
+.finding.crit { --sev: var(--crit); --sev-soft: var(--crit-soft); }
+.finding.high { --sev: var(--high); --sev-soft: var(--high-soft); }
+.finding.med { --sev: var(--med); --sev-soft: var(--med-soft); }
+.finding.low { --sev: var(--low); --sev-soft: var(--low-soft); }
+.finding-top { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
+.sev { font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: var(--sev-soft); color: var(--sev); }
+.finding h3 { flex: 1 1 260px; min-width: 0; }
+.finding p { font-size: 0.95rem; }
+.fix { font-size: 0.92rem; color: var(--ink-2); }
+.fix b { color: var(--accent); }
+code { font-family: var(--mono); font-size: 0.85em; background: var(--paper); border: 1px solid var(--rule); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+
+/* Evidence */
+.evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+figure { margin: 0; background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 12px; display: grid; gap: 10px; align-content: start; }
+figure img { width: 100%; max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--rule); background: #fff; }
+figcaption { font-size: 0.85rem; color: var(--ink-2); }
+figcaption b { color: var(--ink); }
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 620px; }
+.compare figure img { aspect-ratio: 280 / 600; object-fit: cover; }
+
+/* Proposal */
+.deliver { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--rule); }
+.deliver div { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 4px; }
+.deliver b { font-family: var(--display); font-size: 1.05rem; }
+.deliver span { font-size: 0.92rem; color: var(--ink-2); }
+.steps { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+.steps li::marker { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+.confirm { background: var(--accent-soft); border-radius: 12px; padding: 20px 22px; display: grid; gap: 10px; }
+.confirm ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+footer { border-top: 1px solid var(--rule); padding-top: 18px; font-size: 0.82rem; color: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .bar-fill { animation: grow 0.9s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }
+  @keyframes grow { from { transform: scaleX(0.15); } }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="label">Website review</span>
+    <h1>diggin.co.in: what it costs you today</h1>
+    <div class="meta">
+      <span>Site <b>www.diggin.co.in</b></span>
+      <span>Checked <b>19 Oct 2026</b></span>
+      <span>Pages <b>Home, Menu</b></span>
+      <span>Device <b>Mobile</b></span>
+    </div>
+    <p class="summary">
+      The current site has warm photography and a clear mood. But the <b>Book Now</b> button doesn&rsquo;t take
+      bookings, the menu shows template prices, and the five outlets have no pages of their own. Guests already love
+      Diggin (4.3&#9733; from 16,037 Google reviews). The website doesn&rsquo;t turn that interest into tables.
+    </p>
+    <div class="tally" aria-label="Issues by severity">
+      <span class="pill crit"><b>2</b> critical</span>
+      <span class="pill high"><b>4</b> high</span>
+      <span class="pill med"><b>4</b> medium</span>
+      <span class="pill low"><b>2</b> low</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="speed">
+    <div class="section-head">
+      <span class="label">Google Lighthouse, mobile</span>
+      <h2 id="speed">Current site vs. the proposed redesign</h2>
+    </div>
+    <div class="scores">
+      <div class="legend">
+        <span><i style="background: var(--bar-old)"></i> Current diggin.co.in</span>
+        <span><i style="background: var(--accent)"></i> Proposed redesign (demo)</span>
+      </div>
+
+      <div class="score-row">
+        <div class="score-name">Performance<small>score out of 100</small></div>
+        <div class="bars">
+          <div class="bar old"><div class="bar-track"><div class="bar-fill" style="width: 67%"></div></div><span class="bar-val">67</span></div>
+          <div class="bar new"><div class="bar-track"><div class="bar-fill" style="width: 88%"></div></div><span class="bar-val">88</span></div>
+        </div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">Main image shows<small>Largest Contentful Paint, lower is better</small></div>
+        <div class="bars">
+          <div class="bar old"><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-val">7.7 s</span></div>
+          <div class="bar new"><div class="bar-track"><div class="bar-fill" style="width: 41.6%"></div></div><span class="bar-val">3.2 s</span></div>
+        </div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">Ready to use<small>Time to Interactive, lower is better</small></div>
+        <div class="bars">
+          <div class="bar old"><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-val">9.5 s</span></div>
+          <div class="bar new"><div class="bar-track"><div class="bar-fill" style="width: 34.7%"></div></div><span class="bar-val">3.3 s</span></div>
+        </div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">Data downloaded<small>page weight, lower is better</small></div>
+        <div class="bars">
+          <div class="bar old"><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-val">8.3 MB</span></div>
+          <div class="bar new"><div class="bar-track"><div class="bar-fill" style="width: 4.9%"></div></div><span class="bar-val">0.4 MB</span></div>
+        </div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">SEO<small>score out of 100</small></div>
+        <div class="bars">
+          <div class="bar old"><div class="bar-track"><div class="bar-fill" style="width: 92%"></div></div><span class="bar-val">92</span></div>
+          <div class="bar new"><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-val">100</span></div>
+        </div>
+      </div>
+      <div class="score-row">
+        <div class="score-name">Accessibility<small>score out of 100</small></div>
+        <div class="bars">
+          <div class="bar old"><div class="bar-track"><div class="bar-fill" style="width: 90%"></div></div><span class="bar-val">90</span></div>
+          <div class="bar new"><div class="bar-track"><div class="bar-fill" style="width: 100%"></div></div><span class="bar-val">100</span></div>
+        </div>
+      </div>
+      <p class="footnote">
+        Lab test with Lighthouse 12.2 on a simulated mid-range phone. The current homepage was tested live; the
+        redesign was tested as a production build with stock photos. Scores move a little between runs and will change
+        once the real photos are added.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="issues">
+    <div class="section-head">
+      <span class="label">Findings</span>
+      <h2 id="issues">12 issues, most serious first</h2>
+    </div>
+    <ol class="findings">
+      <li class="finding crit">
+        <div class="finding-top"><span class="sev">Critical</span><h3>&ldquo;Book Now&rdquo; doesn&rsquo;t book anything</h3></div>
+        <p>The button in the header links back to the homepage (<code>href="https://www.diggin.co.in"</code>). There is no booking form anywhere on the site. Every guest who taps it ends up where they started, and some of them will book somewhere else.</p>
+        <p class="fix"><b>Fix:</b> a booking request form with outlet, date, time and party size, sent to the outlet team for confirmation by phone or WhatsApp.</p>
+      </li>
+      <li class="finding crit">
+        <div class="finding-top"><span class="sev">Critical</span><h3>Menu shows template prices: &#8377;4.00 and &#8377;7.00</h3></div>
+        <p>Chocolate mousse is listed at &ldquo;Single serve &#8377;4.00, Double serve &#8377;7.00&rdquo;. No other dish has a price. The dessert photos (plates on a pale blue background) also look like the website builder&rsquo;s sample content. Please check whether these desserts are on the current menu.</p>
+        <p class="fix"><b>Fix:</b> replace with the real menu, real prices or no prices, and veg / non-veg marks.</p>
+      </li>
+      <li class="finding high">
+        <div class="finding-top"><span class="sev">High</span><h3>No pizzas or pastas on the online menu</h3></div>
+        <p>The homepage promotes &ldquo;handcrafted pastas, stone-baked pizzas&rdquo;. The menu page lists only 15 dishes: Soups (4), Salads (5) and Desserts (6). Guests searching for Diggin&rsquo;s pizza can&rsquo;t find it.</p>
+        <p class="fix"><b>Fix:</b> publish the complete menu by category, easy to update when dishes change.</p>
+      </li>
+      <li class="finding high">
+        <div class="finding-top"><span class="sev">High</span><h3>Menu page is titled &ldquo;Menu | My Site 2&rdquo;</h3></div>
+        <p>This leftover name from the website template appears in the browser tab, in shared links and in Google search results.</p>
+        <p class="fix"><b>Fix:</b> proper titles and descriptions on every page, e.g. &ldquo;Menu: Italian &amp; Continental | Diggin Cafe, Delhi&rdquo;.</p>
+      </li>
+      <li class="finding high">
+        <div class="finding-top"><span class="sev">High</span><h3>Slow on mobile: 7.7 seconds to show the main image</h3></div>
+        <p>The homepage downloads 8.3 MB and takes 9.5 seconds to become usable on a mid-range phone. Most visitors arrive on mobile data from Google Maps or Instagram.</p>
+        <p class="fix"><b>Fix:</b> correctly sized, compressed images and a lightweight build. The demo loads 0.4 MB.</p>
+      </li>
+      <li class="finding high">
+        <div class="finding-top"><span class="sev">High</span><h3>Five outlets, no outlet pages</h3></div>
+        <p>Anand Lok, Chanakyapuri, Bikaner House, Connaught Place, Gardin by Diggin and the upcoming Tagore Garden appear only as names linking to Google Maps. None has an address, opening hours or its own phone number on the site, so it can&rsquo;t appear in searches like &ldquo;Diggin Connaught Place&rdquo;.</p>
+        <p class="fix"><b>Fix:</b> an outlet card or page for each location with address, hours, directions, call and &ldquo;Reserve here&rdquo;.</p>
+      </li>
+      <li class="finding med">
+        <div class="finding-top"><span class="sev">Medium</span><h3>Wrong or missing dish photos</h3></div>
+        <p>Minestrone shows breadsticks with a dip. Smoked Chicken Soup shows a plated sliced-meat dish. Prawn Soup has no photo.</p>
+        <p class="fix"><b>Fix:</b> match each photo to its dish, or use a clean text menu until real photos are ready.</p>
+      </li>
+      <li class="finding med">
+        <div class="finding-top"><span class="sev">Medium</span><h3>Homepage opens behind &ldquo;Swipe up to start the experience&rdquo;</h3></div>
+        <p>The first screen is a full-bleed photo with a swipe prompt. The header has only the logo and Book Now, with no link to the menu or outlets. Guests have to work to find basic information.</p>
+        <p class="fix"><b>Fix:</b> a first screen with the headline, rating, &ldquo;Book a table&rdquo; and &ldquo;See menu&rdquo;, plus clear navigation.</p>
+      </li>
+      <li class="finding med">
+        <div class="finding-top"><span class="sev">Medium</span><h3>Different phone numbers on the website and on Google</h3></div>
+        <p>The website lists 90900 63232 (Diggin) and 96469 63696 (Gardin). The Google listing with 16,037 reviews shows 011 4080 0082. Mixed contact details confuse guests and weaken local search ranking.</p>
+        <p class="fix"><b>Fix:</b> one consistent number per outlet on the website, Google and Instagram.</p>
+      </li>
+      <li class="finding med">
+        <div class="finding-top"><span class="sev">Medium</span><h3>Search basics missing on the homepage</h3></div>
+        <p>No meta description, so Google writes its own snippet. No main heading (H1). The page title is just &ldquo;Home | Diggin&rdquo;.</p>
+        <p class="fix"><b>Fix:</b> a title, description and heading that say what Diggin is and where, plus restaurant structured data for Google.</p>
+      </li>
+      <li class="finding low">
+        <div class="finding-top"><span class="sev">Low</span><h3>No opening hours anywhere on the site</h3></div>
+        <p>&ldquo;Are you open now?&rdquo; is one of the most common questions guests ask before visiting.</p>
+        <p class="fix"><b>Fix:</b> hours on each outlet card, kept in sync with Google.</p>
+      </li>
+      <li class="finding low">
+        <div class="finding-top"><span class="sev">Low</span><h3>Small technical and accessibility errors</h3></div>
+        <p>The breadcrumb data sent to Google contains the untranslated label <code>app.breadcrumbs.labels.home</code>. Five homepage images have no description. Lighthouse also flags icon links with no name, low-contrast text and touch targets that are too small.</p>
+        <p class="fix"><b>Fix:</b> handled as part of the rebuild. The demo scores 100 for accessibility.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="proof">
+    <div class="section-head">
+      <span class="label">Screenshots, 19 Oct 2026</span>
+      <h2 id="proof">What a guest sees today</h2>
+    </div>
+    <div class="evidence">
+      <figure>
+        <img src="menu-template-prices.png" alt="Menu page showing Chocolate mousse priced at rupees 4.00 single serve and rupees 7.00 double serve" width="390" height="290">
+        <figcaption><b>Template prices.</b> Chocolate mousse at &#8377;4.00 / &#8377;7.00 on diggin.co.in/menu.</figcaption>
+      </figure>
+      <figure>
+        <img src="menu-soup-photos.png" alt="Soups section where Minestrone shows breadsticks and Smoked Chicken Soup shows a sliced meat dish" width="270" height="450">
+        <figcaption><b>Mismatched photos.</b> Minestrone shows breadsticks. Smoked Chicken Soup shows a meat plate.</figcaption>
+      </figure>
+    </div>
+    <div class="compare">
+      <figure>
+        <img src="current-home-mobile.png" alt="Current homepage on a phone: a food photo with Swipe up to start the experience" width="280" height="600">
+        <figcaption><b>Today.</b> Swipe gate. Book Now goes nowhere.</figcaption>
+      </figure>
+      <figure>
+        <img src="new-home-mobile.png" alt="Redesigned homepage on a phone with headline, rating, Reserve a Table and a Call, Outlets, Book a Table bar" width="280" height="600">
+        <figcaption><b>Redesign.</b> Rating, booking and menu on the first screen.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="offer">
+    <div class="section-head">
+      <span class="label">Proposal</span>
+      <h2 id="offer">What the new website does</h2>
+      <p class="muted">A working demo is ready to walk through. It already uses Diggin&rsquo;s real outlets, phone numbers and menu text.</p>
+    </div>
+    <div class="deliver">
+      <div><b>Bookings per outlet</b><span>Guests pick an outlet, date, time and party size. The outlet confirms by call or WhatsApp.</span></div>
+      <div><b>Outlet cards</b><span>Every location with directions, call, &ldquo;Reserve here&rdquo;, and hours once confirmed.</span></div>
+      <div><b>A real menu</b><span>Every category, veg / non-veg marks, prices only where you want them.</span></div>
+      <div><b>Fast on phones</b><span>0.4 MB instead of 8.3 MB. One-tap Call, Outlets and Book bar.</span></div>
+      <div><b>Found on Google</b><span>Correct titles, descriptions and restaurant data for each page and outlet.</span></div>
+      <div><b>Easy to update</b><span>Menu, outlets, hours and photos live in one editable file.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="next">
+    <div class="section-head">
+      <span class="label">Next steps</span>
+      <h2 id="next">From demo to live site</h2>
+    </div>
+    <ol class="steps">
+      <li><b>20-minute walkthrough</b> of the demo on your phone and laptop.</li>
+      <li><b>Share the details:</b> full menu and prices, outlet addresses and hours, your best photos, and the number that should receive bookings.</li>
+      <li><b>Build and review:</b> real photos and content go in, and you approve every page.</li>
+      <li><b>Launch</b> on diggin.co.in, with Google listings updated to match.</li>
+    </ol>
+    <div class="confirm">
+      <h3>To confirm with the Diggin team</h3>
+      <ul>
+        <li>Which phone number guests should call or WhatsApp for each outlet.</li>
+        <li>Which outlet the Google listing with 16,037 reviews belongs to.</li>
+        <li>Whether the dessert list on the current menu page is up to date.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Prepared for the Diggin team. Findings come from the public website as it appeared on 19 October 2026. Photos in the redesign demo are stock images used as placeholders until Diggin&rsquo;s own photos are added.
+  </footer>
+</div>
