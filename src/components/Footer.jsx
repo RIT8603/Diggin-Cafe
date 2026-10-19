@@ -62,7 +62,10 @@ export default function Footer() {
         </div>
       </div>
       <div className="container footer__bottom">
-        <p>© {new Date().getFullYear()} {business.fullName}. All rights reserved.</p>
+        <div>
+          <p>© {new Date().getFullYear()} {business.fullName}. All rights reserved.</p>
+          <p>Design and Developed by Ritesh Kumar</p>
+        </div>
         <p className="footer__disclaimer">
           Website prototype for demonstration. Photos are illustrative stock images (Unsplash), and booking requests are
           not sent in this demo.
