@@ -9,10 +9,17 @@ export default function Intro() {
       <div className="container intro__grid">
         <div className="intro__media">
           <Reveal className="intro__img intro__img--a">
+<<<<<<< HEAD
             <SmartImage src={intro.images[0]} alt="Cafe interior, illustrative stock photo" />
           </Reveal>
           <Reveal className="intro__img intro__img--b" delay={150}>
             <SmartImage src={intro.images[1]} alt="Coffee, illustrative stock photo" />
+=======
+            <SmartImage src={intro.images[0]} alt="Illustrative cafe interior (stock photo)" />
+          </Reveal>
+          <Reveal className="intro__img intro__img--b" delay={150}>
+            <SmartImage src={intro.images[1]} alt="Illustrative coffee (stock photo)" />
+>>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
           </Reveal>
           <span className="intro__leaf" aria-hidden="true"><Icon name="leaf" size={120} /></span>
         </div>
