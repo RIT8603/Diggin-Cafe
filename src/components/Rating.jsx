@@ -30,17 +30,10 @@ export default function Rating() {
             See what real guests say on the official Google profile. Reviews live on Google and are not reproduced here.
           </p>
           <div className="btn-row">
-<<<<<<< HEAD
             <a href={business.googleUrl} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
               Read reviews on Google <Icon name="arrow" size={18} />
             </a>
             <a href={business.googleUrl} target="_blank" rel="noopener noreferrer" className="btn btn--outline">
-=======
-            <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
-              Read reviews on Google <Icon name="arrow" size={18} />
-            </a>
-            <a href={business.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn--outline">
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
               Leave a review
             </a>
           </div>

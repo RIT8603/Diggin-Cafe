@@ -9,11 +9,7 @@ const paths = {
   clock: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></>,
   star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z" />,
   instagram: <><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" /></>,
-<<<<<<< HEAD
   facebook: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z" />,
-=======
-  google: <><circle cx="12" cy="12" r="10" /><path d="M12 8v4h4" /></>,
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   close: <path d="M18 6 6 18M6 6l12 12" />,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,

@@ -7,11 +7,7 @@ const links = [
   { href: '#about', label: 'About' },
   { href: '#menu', label: 'Menu' },
   { href: '#gallery', label: 'Gallery' },
-<<<<<<< HEAD
   { href: '#outlets', label: 'Outlets' },
-=======
-  { href: '#contact', label: 'Contact' },
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
 ]
 
 export default function Navbar() {

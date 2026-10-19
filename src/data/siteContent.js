@@ -1,5 +1,4 @@
 /*
-<<<<<<< HEAD
  * DIGGIN — editable site content
  * ------------------------------------------------------------
  * Everything the owner may want to change lives in this file.
@@ -17,29 +16,12 @@
  *
  * IMAGES: royalty-free Unsplash stock photos for illustration only. They
  * are NOT photos of DIGGIN. Replace them with DIGGIN's own photography.
-=======
- * DIGGIN CAFE — editable site content
- * ------------------------------------------------------------
- * Everything the cafe owner may want to change lives in this file.
- *
- * VERIFIED (supplied for this prototype):
- *   name, category, Google rating + review count, phone, Google Maps link.
- *
- * UNVERIFIED / PLACEHOLDER (marked `verified: false` or with TODO):
- *   address, opening hours, menu items, descriptions, social links.
- *   Replace these with confirmed details before going live.
- *
- * IMAGES: all photos are royalty-free stock images from Unsplash used for
- * illustration only. They are NOT photos of DIGGIN CAFE. Swap in the
- * cafe's own photography before launch.
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
  */
 
 const unsplash = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`
 
 export const business = {
-<<<<<<< HEAD
   name: 'DIGGIN',
   fullName: 'DIGGIN CAFE',
   category: 'Italian & Continental Cafe',
@@ -76,32 +58,10 @@ export const hero = {
   eyebrow: 'Italian & Continental · Across Delhi',
   subhead:
     'Fairy lights, lush greens and the warmth of a European café. Handcrafted pastas, stone-baked pizzas and desserts made to linger over.',
-=======
-  name: 'DIGGIN CAFE',
-  category: 'Premium Cafe',
-  city: 'Delhi',
-  rating: 4.3,
-  reviewCount: 16037,
-  phoneDisplay: '+91 11 4080 0082',
-  phoneHref: 'tel:+911140800082',
-  mapsUrl: 'https://maps.google.com/?cid=11346086479872014922',
-  // TODO: confirm full street address with the owner.
-  address: { text: 'Delhi — see exact location on Google Maps', verified: false },
-  // TODO: confirm opening hours with the owner.
-  hours: { text: 'Opening hours to be confirmed — please call ahead', verified: false },
-}
-
-export const hero = {
-  eyebrow: 'Premium Cafe · Delhi',
-  headline: 'Good Food. Beautiful Moments.',
-  subhead:
-    'A leafy, laid-back escape in the heart of the city — made for long lunches, slow coffees and catching up with the people you love.',
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
   image: unsplash('photo-1554118811-1e0d58224f24', 2000),
 }
 
 export const intro = {
-<<<<<<< HEAD
   eyebrow: 'All About Diggin',
   title: 'An escape wrapped in fairy lights',
   // Paraphrased from the "All About Diggin" section on diggin.co.in.
@@ -113,19 +73,6 @@ export const intro = {
     { icon: 'leaf', title: 'Garden-café setting', text: 'Lush greens and fairy lights across our outlets.' },
     { icon: 'plate', title: 'Italian & continental', text: 'Pastas, pizzas, soups and fresh salads.' },
     { icon: 'cup', title: 'In-house desserts', text: 'Baked fresh by our own pastry chef.' },
-=======
-  eyebrow: 'Our Story',
-  title: 'A garden table, waiting for you',
-  // Placeholder copy — replace with the cafe's own story.
-  paragraphs: [
-    'DIGGIN CAFE is a much-loved Delhi favourite, rated 4.3 by more than sixteen thousand guests on Google.',
-    'This section is a place for the cafe to tell its own story — how it started, what inspires the kitchen, and what makes an afternoon here feel special. The text you are reading is placeholder copy for the demo.',
-  ],
-  highlights: [
-    { icon: 'leaf', title: 'Nature-inspired setting', text: 'Placeholder — describe the space, seating and greenery.' },
-    { icon: 'cup', title: 'Coffee & conversations', text: 'Placeholder — describe the beverage programme.' },
-    { icon: 'plate', title: 'Food made to share', text: 'Placeholder — describe the kitchen and its signatures.' },
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
   ],
   images: [
     unsplash('photo-1501339847302-ac426a4a7cbb', 900),
@@ -134,7 +81,6 @@ export const intro = {
 }
 
 /*
-<<<<<<< HEAD
  * MENU: items and descriptions as published on diggin.co.in/menu.
  * veg: true = vegetarian, false = non-vegetarian, null = not stated.
  * Prices are left out on purpose; the live site only shows template values.
@@ -186,35 +132,6 @@ export const menu = [
     pending: true,
     items: [],
   },
-=======
- * MENU — sample items for layout only.
- * Item names and descriptions are illustrative and prices are intentionally
- * omitted. Replace with the cafe's actual menu (add `price: '₹…'` per item
- * once confirmed and it will display automatically).
- */
-export const menuCategories = [
-  { id: 'all', label: 'All' },
-  { id: 'breakfast', label: 'All-Day Breakfast' },
-  { id: 'pizza', label: 'Pizza & Pasta' },
-  { id: 'mains', label: 'Mains & Bowls' },
-  { id: 'desserts', label: 'Desserts' },
-  { id: 'drinks', label: 'Coffee & Drinks' },
-]
-
-export const menuItems = [
-  { name: 'Fluffy Pancake Stack', category: 'breakfast', desc: 'Sample item — maple, berries, whipped butter.', veg: true, image: unsplash('photo-1567620905732-2d1ec7ab7445', 700) },
-  { name: 'Avocado Sourdough Toast', category: 'breakfast', desc: 'Sample item — smashed avocado, chilli, seeds.', veg: true, image: unsplash('photo-1525351484163-7529414344d8', 700) },
-  { name: 'Wood-fired Margherita', category: 'pizza', desc: 'Sample item — tomato, fior di latte, basil.', veg: true, image: unsplash('photo-1513104890138-7c749659a591', 700) },
-  { name: 'Creamy Penne', category: 'pizza', desc: 'Sample item — parmesan cream, herbs.', veg: true, image: unsplash('photo-1621996346565-e3dbc646d9a9', 700) },
-  { name: 'Garden Buddha Bowl', category: 'mains', desc: 'Sample item — grains, greens, roasted veg.', veg: true, image: unsplash('photo-1546069901-ba9599a7e63c', 700) },
-  { name: 'Grilled Chicken Plate', category: 'mains', desc: 'Sample item — herb chicken, seasonal sides.', veg: false, image: unsplash('photo-1504674900247-0877df9cc836', 700) },
-  { name: 'Chocolate Indulgence', category: 'desserts', desc: 'Sample item — rich chocolate, berries.', veg: true, image: unsplash('photo-1551024601-bec78aea704b', 700) },
-  { name: 'Classic Cheesecake', category: 'desserts', desc: 'Sample item — baked, with fruit compote.', veg: true, image: unsplash('photo-1533134242443-d4fd215305ad', 700) },
-  { name: 'Signature Cappuccino', category: 'drinks', desc: 'Sample item — double shot, silky foam.', veg: true, image: unsplash('photo-1509042239860-f550ce710b93', 700) },
-  { name: 'Iced Cold Brew', category: 'drinks', desc: 'Sample item — slow-steeped, served over ice.', veg: true, image: unsplash('photo-1461023058943-07fcbe16d735', 700) },
-  { name: 'Fresh Fruit Cooler', category: 'drinks', desc: 'Sample item — seasonal fruit, mint, soda.', veg: true, image: unsplash('photo-1544145945-f90425340c7e', 700) },
-  { name: 'Pesto Pizza', category: 'pizza', desc: 'Sample item — basil pesto, cherry tomato.', veg: true, image: unsplash('photo-1565299624946-b28f40a0ae38', 700) },
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
 ]
 
 export const gallery = [
@@ -225,7 +142,6 @@ export const gallery = [
   { src: unsplash('photo-1559339352-11d035aa65de', 1400), alt: 'Cosy dining room with plants', type: 'ambience' },
   { src: unsplash('photo-1565299624946-b28f40a0ae38', 1000), alt: 'Freshly baked pizza', type: 'food' },
   { src: unsplash('photo-1466978913421-dad2ebd01d17', 1400), alt: 'Bright cafe with large windows', type: 'ambience' },
-<<<<<<< HEAD
   { src: unsplash('photo-1621996346565-e3dbc646d9a9', 1000), alt: 'Creamy pasta', type: 'food' },
 ]
 
@@ -233,17 +149,4 @@ export const social = [
   { id: 'instagram', label: 'Instagram @diggincafe', url: business.instagram },
   { id: 'facebook', label: 'Facebook', url: business.facebook },
   { id: 'google', label: 'Google reviews', url: business.googleUrl },
-=======
-  { src: unsplash('photo-1488477181946-6428a0291777', 1000), alt: 'Dessert with fresh berries', type: 'food' },
-]
-
-/*
- * SOCIAL — only links that are known to work are shown.
- * TODO: replace with the cafe's official handles once confirmed.
- */
-export const social = [
-  { id: 'instagram', label: 'Instagram (#diggincafe)', url: 'https://www.instagram.com/explore/tags/diggincafe/' },
-  { id: 'google', label: 'Google Maps', url: business.mapsUrl },
-  { id: 'phone', label: 'Call the cafe', url: business.phoneHref },
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
 ]

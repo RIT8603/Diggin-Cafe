@@ -4,7 +4,6 @@ import { business, hero } from '../data/siteContent.js'
 export default function Hero() {
   return (
     <section className="hero" id="top">
-<<<<<<< HEAD
       <img
         className="hero__bg"
         src={hero.image}
@@ -13,13 +12,6 @@ export default function Hero() {
         alt=""
         fetchPriority="high"
         decoding="async"
-=======
-      <div
-        className="hero__bg"
-        style={{ backgroundImage: `url(${hero.image})` }}
-        role="img"
-        aria-label="Illustrative stock photo of a cafe interior"
->>>>>>> 2c11efdc0b9544df9bdca3c6db5136757d8d5cfe
       />
       <div className="hero__shade" />
       <div className="container hero__content">
